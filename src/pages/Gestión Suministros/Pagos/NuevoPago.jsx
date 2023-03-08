@@ -4,12 +4,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../../components/Button";
 import FormContainer from "../../../components/FormContainer";
 import FormControl from "../../../components/FormControl";
-import Header from "../../../components/Header";
 import Input from "../../../components/Input";
+import SelectMetodoPago from "../../../components/Select/SelectMetodoPago";
 import SelectSaecios from "../../../components/Select/SelectSaecio";
 import AppLayout from "../../../layouts/AppLayout";
 import { PagosService } from "../../../services/GestionSuministros/pagos.service";
-import { SaeciosService } from "../../../services/Saecios/saecios.service";
 
 export default function NuevoPago() {
   const [pago, setPago] = useState({
@@ -26,7 +25,11 @@ export default function NuevoPago() {
   useEffect(() => {
     if (id !== "nuevo") {
       new PagosService().getPago(id).then(async (res) => {
-        setPago(await res.json());
+        const response = await res.json()
+        if(response.fecha) {
+          response.fecha = response.fecha.substring(0,10);
+        }
+        setPago(response);
       });
     }
   }, []);
@@ -45,6 +48,13 @@ export default function NuevoPago() {
       handlePago("receptor", null);
     } else {
       handlePago("receptor", saecio._id);
+    }
+  };
+  const handleMetodo = (metodo) => {
+    if (!metodo) {
+      handlePago("metodo_pago", null);
+    } else {
+      handlePago("metodo_pago", metodo._id);
     }
   };
   const createPago = () => {
@@ -80,7 +90,7 @@ export default function NuevoPago() {
         </FormControl>
         <FormControl label={"Fecha"}>
           <Input
-            value={pago.nombre}
+            value={pago.fecha}
             onChange={handlePago}
             type="date"
             name="fecha"
@@ -93,10 +103,13 @@ export default function NuevoPago() {
           />
         </FormControl>
         <FormControl label={"Métodos de pago"} span={2}>
-          <Input value={pago.precio} onChange={handlePago} name="precio" />
+          <SelectMetodoPago
+            handleMetodo={handleMetodo}
+            value={pago.metodo_pago ? pago.metodo_pago._id : ""}
+          />
         </FormControl>
         <div className="col-span-4">
-          <Button onClick={id == "nuevo" ? createPago : updatePago}>
+          <Button onClick={id === "nuevo" ? createPago : updatePago}>
             Guardar
           </Button>
         </div>

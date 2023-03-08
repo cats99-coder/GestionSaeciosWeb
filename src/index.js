@@ -8,12 +8,9 @@ import Saecios from "./pages/Saecios/Saecios";
 import NuevoSaecio from "./pages/Saecios/NuevoSaecio";
 import GestionSuministros from "./pages/Gestión Suministros/GestionSuministros";
 import Productos from "./pages/Gestión Suministros/Productos/Productos";
-import MetodosPago from "./pages/Gestión Suministros/Pagos/MetodosPago";
 import NuevoProducto from "./pages/Gestión Suministros/Productos/NuevoProducto";
 import Pagos from "./pages/Gestión Suministros/Pagos/Pagos";
 import NuevoPago from "./pages/Gestión Suministros/Pagos/NuevoPago";
-import GruposProductos from "./pages/Gestión Suministros/Productos/Grupos";
-import NuevoGrupo from "./pages/Gestión Suministros/Productos/NuevoGrupo";
 import { Tarifas } from "./pages/Gestión Suministros/Tarifas/Tarifas";
 import Gastos from "./pages/Gestión Suministros/Gastos/Gastos";
 import NuevoGasto from "./pages/Gestión Suministros/Gastos/NuevoGasto";
@@ -25,15 +22,6 @@ const router = createBrowserRouter([
   { path: "/saecios/:id", element: <NuevoSaecio /> },
   { path: "/gestion-suministros", element: <GestionSuministros /> },
   { path: "/gestion-suministros/productos", element: <Productos /> },
-  {
-    path: "/gestion-suministros/productos/grupos",
-    element: <GruposProductos />,
-  },
-  {
-    path: "/gestion-suministros/productos/grupos/:id",
-    element: <NuevoGrupo />,
-  },
-  { path: "/gestion-suministros/metodos-pago", element: <MetodosPago /> },
   { path: "/gestion-suministros/productos/:id", element: <NuevoProducto /> },
   { path: "/gestion-suministros/pagos", element: <Pagos /> },
   { path: "/gestion-suministros/gastos", element: <Gastos /> },

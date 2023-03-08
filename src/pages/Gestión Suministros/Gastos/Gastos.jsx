@@ -3,6 +3,7 @@ import { useState } from "react";
 import Crud from "../../../components/Crud";
 import ToolbarCrud from "../../../components/ToolbarCrud";
 import AppLayout from "../../../layouts/AppLayout";
+import { GastosService } from "../../../services/GestionSuministros/gastos.service";
 import { PagosService } from "../../../services/GestionSuministros/pagos.service";
 
 export default function Gastos() {
@@ -10,21 +11,21 @@ export default function Gastos() {
   const [update, setUpdate] = useState(true)
   const [filtro, setFiltro] = useState("");
   const cabecera = [
-    "Producto",
-    "Unidades",
+    "Número",
+    "Fecha",
     "Cantidad",
     "Precio",
     "Total"
   ];
   const atributos = [
-    "producto",
-    "unidades",
-    "cantidad",
+    "numero",
+    "fecha",
+    "proveedor.nombre",
     "precio",
     "total"
   ];
   useEffect(() => {
-    fetch("http://localhost:3001/pagos").then(async (res) => {
+    fetch("http://localhost:3001/gastos").then(async (res) => {
       if (!res.ok) throw new Error("Server Error");
       setGastos(await res.json());
     });
@@ -33,7 +34,7 @@ export default function Gastos() {
     setFiltro(value);
   };
   const handleDelete = (id) => {
-    new PagosService().deletePago(id).then(() => {
+    new GastosService().deleteGasto(id).then(() => {
       console.log("Eliminado", id);
       setUpdate((prev) => !prev);
     });

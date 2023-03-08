@@ -1,10 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Button from "../../../components/Button";
 import Crud from "../../../components/Crud";
-import Header from "../../../components/Header";
-import Input from "../../../components/Input";
 import ToolbarCrud from "../../../components/ToolbarCrud";
 import AppLayout from "../../../layouts/AppLayout";
 import { PagosService } from "../../../services/GestionSuministros/pagos.service";
@@ -24,7 +20,7 @@ export default function Pagos() {
     "fecha",
     "saecio.nombre",
     "receptor.nombre",
-    "metodo_pago",
+    "metodo_pago.tipo",
     "cantidad",
   ];
   useEffect(() => {
@@ -38,7 +34,6 @@ export default function Pagos() {
   };
   const handleDelete = (id) => {
     new PagosService().deletePago(id).then(() => {
-      console.log("Eliminado", id);
       setUpdate((prev) => !prev);
     });
   };

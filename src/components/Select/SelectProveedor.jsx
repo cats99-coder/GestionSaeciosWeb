@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { ProductosService } from "../../services/GestionSuministros/productos.service";
+import { GastosService } from "../../services/GestionSuministros/gastos.service";
 
-const Select = ({ onChange, name = "", items, value, handleNewGrupo }) => {
+const Select = ({ onChange, name = "", items, value, handleNewProveedor }) => {
   const handleValue = (event) => {
     if (name) {
       return onChange(name, event.target.value);
@@ -10,7 +10,7 @@ const Select = ({ onChange, name = "", items, value, handleNewGrupo }) => {
     }
   };
   const crearNuevoGrupo = () => {
-    handleNewGrupo();
+    handleNewProveedor();
   };
   return (
     <div className="flex space-x-2">
@@ -42,39 +42,39 @@ const Select = ({ onChange, name = "", items, value, handleNewGrupo }) => {
     </div>
   );
 };
-const SelectGrupoProducto = ({ handleGrupo, value }) => {
-  const [grupos, setGrupos] = useState([]);
+const SelectProveedor = ({ handleProveedor, value }) => {
+  const [proveedores, setProveedores] = useState([]);
   const [update, setUpdate] = useState(true);
   useEffect(() => {
-    fetch("http://localhost:3001/productos-grupos").then(async (res) => {
-      setGrupos(await res.json());
+    new GastosService().getProveedores().then(async (res) => {
+      setProveedores(await res.json());
     });
   }, [update]);
-  const onChange = (g) => {
-    const grupo = grupos.find((grupo) => {
-      return grupo._id === g;
+  const onChange = (p) => {
+    const proveedor = proveedores.find((proveedor) => {
+      return proveedor._id === p;
     });
-    handleGrupo(grupo);
+    handleProveedor(proveedor);
   };
-  const handleNewGrupo = () => {
-    const nombre = prompt("Indique el nombre del grupo");
+  const handleNewProveedor = () => {
+    const nombre = prompt("Indique el nombre del proveedor");
     if (
       nombre &&
-      window.confirm(`¿Está seguro/a que desea crear el grupo: ${nombre}?`)
+      window.confirm(`¿Está seguro/a que desea crear el proveedor: ${nombre}?`)
     ) {
-      new ProductosService().createGrupo({ nombre }).then(() => {
+      new GastosService().createProveedor({ nombre }).then(() => {
         setUpdate((prev) => !prev);
       });
     }
   };
   return (
     <Select
-      items={grupos}
+      items={proveedores}
       value={value}
-      handleNewGrupo={handleNewGrupo}
+      handleNewProveedor={handleNewProveedor}
       onChange={onChange}
     />
   );
 };
 
-export default SelectGrupoProducto;
+export default SelectProveedor;

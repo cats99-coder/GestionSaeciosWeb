@@ -31,7 +31,6 @@ const GestionSuministros = () => {
         <Card text="Pagos">
           <Item text="Nuevo" url="pagos/nuevo" />
           <Item text="Consultar" url="pagos" />
-          <Item text="Métodos de pago" url="metodos-pago" />
         </Card>
         <Card text="Gastos">
           <Item text="Nuevo" url="gastos/nuevo" />
@@ -40,17 +39,11 @@ const GestionSuministros = () => {
         <Card text="Productos">
           <Item text="Nuevo" url="productos/nuevo" />
           <Item text="Consultar" url="productos" />
-          <Item text="Nuevo Grupo" url="productos/grupos/nuevo" />
-          <Item text="Consultar Grupos" url="productos/grupos" />
         </Card>
-        <Card text="Informes"></Card>
         <Card text="Tarifas">
           <Item text="Consultar Tarifas" url="tarifas" />
         </Card>
-        <Card text="Proveedores">
-          <Item text="Nuevo Proveedor" url="gastos/proveedores/nuevo" />
-          <Item text="Consultar Proveedores" url="gastos/proveedores" />
-        </Card>
+        <Card text="Informes"></Card>
       </div>
     </AppLayout>
   );
