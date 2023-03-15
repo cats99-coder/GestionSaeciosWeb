@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import Header from "../../components/Header";
 import AppLayout from "../../layouts/AppLayout";
 
 const Item = ({ text, url }) => {
